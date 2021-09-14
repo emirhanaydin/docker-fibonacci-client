@@ -6,7 +6,9 @@ function OtherPage() {
     <div>
       <h1>This is another page.</h1>
 
-      <Link to="/">Homepage</Link>
+      <Link to="/" className="button">
+        Back to Home
+      </Link>
     </div>
   );
 }

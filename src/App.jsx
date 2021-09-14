@@ -1,11 +1,11 @@
 import React from "react";
-import "./App.css";
 import {
   BrowserRouter as Router,
   NavLink,
   Route,
   Switch,
 } from "react-router-dom";
+import "./App.css";
 import OtherPage from "./OtherPage";
 import Fibonacci from "./Fibonacci";
 
@@ -13,9 +13,9 @@ function App() {
   return (
     <Router>
       <div>
-        <header className="App-header">
-          <nav>
-            <ul>
+        <header>
+          <nav className="nav">
+            <ul className="nav-list">
               <li>
                 <NavLink exact to="/">
                   Home
@@ -29,7 +29,7 @@ function App() {
           </nav>
         </header>
 
-        <div className="App">
+        <div className="app">
           <Switch>
             <Route exact path="/">
               <Fibonacci />
