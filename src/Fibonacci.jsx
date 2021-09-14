@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
+import styles from "./Fibonacci.module.css";
 
 function Fibonacci() {
   const [seenFibIndexes, setSeenFibIndexes] = useState([]);
-  const [fibValues, setFibValues] = useState([]);
-  const [fibIndex, setFibIndex] = useState();
+  const [fibValues, setFibValues] = useState({});
+  const [fibIndex, setFibIndex] = useState("");
 
   async function fetchFibValues() {
     const values = (await axios.get("/api/values/current")).data;
@@ -18,20 +19,24 @@ function Fibonacci() {
     setSeenFibIndexes(seenIndexes);
   }
 
+  const dataCallback = useCallback(async () => {
+    await Promise.all([fetchFibValues(), fetchFibIndexes()]);
+  }, []);
+
   useEffect(() => {
-    fetchFibValues().catch(console.error);
-    fetchFibIndexes().catch(console.error);
-  });
+    dataCallback().catch(console.error);
+  }, [dataCallback]);
 
   function renderSeenIndexes() {
-    return seenFibIndexes.map(({ number }) => number).join(", ");
+    return seenFibIndexes.map(({ number }) => <li key={number}>{number}</li>);
   }
 
   function renderValues() {
-    return fibValues.map((index) => (
-      <div key={index}>
-        Calculated values for {index}: {fibValues[index]}
-      </div>
+    return Object.entries(fibValues).map(([index, value]) => (
+      <tr key={index}>
+        <td>{index}</td>
+        <td>{value}</td>
+      </tr>
     ));
   }
 
@@ -39,7 +44,9 @@ function Fibonacci() {
     event.preventDefault();
 
     await axios.post("/api/values", { index: fibIndex });
-    setFibIndex();
+    setFibIndex("");
+
+    dataCallback().catch(console.error);
   }
 
   return (
@@ -56,10 +63,19 @@ function Fibonacci() {
       </form>
 
       <h3>Calculated Indexes</h3>
-      {renderSeenIndexes()}
+      <ul className={styles.Indexes}>{renderSeenIndexes()}</ul>
 
       <h3>Calculated Values</h3>
-      {renderValues()}
+      <table className={styles.Values}>
+        <tbody>
+          <tr>
+            <th>Indexes</th>
+            <th>Values</th>
+          </tr>
+
+          {renderValues()}
+        </tbody>
+      </table>
     </div>
   );
 }
