@@ -10,7 +10,7 @@ RUN npm install
 COPY src/ src/
 COPY public/ public/
 
-RUN npm build
+RUN npm run build
 
 FROM nginx:1-alpine
 
