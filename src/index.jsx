@@ -1,11 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import { Helmet } from "react-helmet";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>Fibonacci App</title>
+    </Helmet>
+
     <App />
   </React.StrictMode>,
   document.getElementById("root")
