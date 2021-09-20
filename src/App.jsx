@@ -12,32 +12,34 @@ import Fibonacci from "./Fibonacci";
 function App() {
   return (
     <Router>
-      <header>
-        <nav className="nav">
-          <ul className="nav-list">
-            <li>
-              <NavLink exact to="/">
-                Home
-              </NavLink>
-            </li>
+      <div>
+        <header>
+          <nav className="nav">
+            <ul className="nav-list">
+              <li>
+                <NavLink exact to="/">
+                  Home
+                </NavLink>
+              </li>
 
-            <li>
-              <NavLink to="/other-page">Other Page</NavLink>
-            </li>
-          </ul>
-        </nav>
-      </header>
+              <li>
+                <NavLink to="/other-page">Other Page</NavLink>
+              </li>
+            </ul>
+          </nav>
+        </header>
 
-      <div className="app">
-        <Switch>
-          <Route exact path="/">
-            <Fibonacci />
-          </Route>
+        <div className="app">
+          <Switch>
+            <Route exact path="/">
+              <Fibonacci />
+            </Route>
 
-          <Route path="/other-page">
-            <OtherPage />
-          </Route>
-        </Switch>
+            <Route path="/other-page">
+              <OtherPage />
+            </Route>
+          </Switch>
+        </div>
       </div>
     </Router>
   );
